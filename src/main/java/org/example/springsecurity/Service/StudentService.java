@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class StudentService {
     @Autowired
-    StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     public List<Student> getAllStudents(){
          return studentRepository.findAll();
