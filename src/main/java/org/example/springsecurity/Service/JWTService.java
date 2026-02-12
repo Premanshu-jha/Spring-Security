@@ -1,5 +1,6 @@
 package org.example.springsecurity.Service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -42,21 +43,29 @@ public class JWTService {
                 .compact();
     }
 
+
     public Key generateKey(){
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
 
     }
 
-
+    public Claims extractClaims(String token){
+        return Jwts.parserBuilder().setSigningKey(generateKey()).build()
+                .parseClaimsJws(token).getBody();
+    }
 
     public String extractUserName(String token) {
-        return Jwts.parserBuilder().setSigningKey(generateKey()).build().parseClaimsJws(token)
-                .getBody().getSubject();
+        return extractClaims(token).getSubject();
 
     }
 
+    public Date extractExpiryDate(String token){
+        return extractClaims(token).getExpiration();
+    }
+
     public boolean validateToken(String token, UserDetails userDetails) {
-        return true;
+        return extractUserName(token).equals(userDetails.getUsername())
+                && extractExpiryDate(token).after(new Date());
     }
 }
