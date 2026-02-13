@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                     req.requestMatchers("/register","/login").permitAll()
                     .anyRequest().authenticated()
-                )
+                ).oauth2Login(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
