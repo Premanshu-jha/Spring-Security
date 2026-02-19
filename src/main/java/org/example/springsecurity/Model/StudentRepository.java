@@ -2,5 +2,8 @@ package org.example.springsecurity.Model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StudentRepository extends JpaRepository<Student,Integer> {
+import java.util.Optional;
+
+public interface StudentRepository extends JpaRepository<Student,Long> {
+    Optional<Student> findByEmail(String email);
 }
