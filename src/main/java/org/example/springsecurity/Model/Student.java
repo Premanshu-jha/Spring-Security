@@ -1,39 +1,92 @@
 package org.example.springsecurity.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Objects;
 @Entity
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private Integer marks;
+    private Long id;
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String firstName;
+    @Column(
+            columnDefinition = "TEXT"
+    )
+    private String lastName;
+    @Column(
+            nullable = false
+    )
+    private Integer age;
+    @Column(
+            nullable = false,
+            unique = true,
+            columnDefinition = "TEXT"
+    )
+    private String email;
 
-    public Integer getId() {
+    public Student() {
+    }
+
+    public Student(String firstName, String lastName, Integer age, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Integer getMarks() {
-        return marks;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setMarks(int marks) {
-        this.marks = marks;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id) && Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(age, student.age) && Objects.equals(email, student.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, age, email);
     }
 }
