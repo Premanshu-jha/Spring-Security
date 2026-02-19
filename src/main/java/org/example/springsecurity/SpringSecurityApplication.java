@@ -22,7 +22,7 @@ public class SpringSecurityApplication {
     CommandLineRunner commandLineRunner(StudentRepository studentRepository){
         return args -> {
             Faker faker = new Faker();
-            for(int i=0;i<100;i++){
+            for(int i=0;i<2;i++){
                  String firstName = faker.name().firstName();
                  String lastName = faker.name().lastName();
                  String email = """
