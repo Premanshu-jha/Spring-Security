@@ -16,14 +16,22 @@ public class StudentIdCardService {
     @Autowired
     StudentRepository studentRepository;
 
-    public List<StudentIdCard> getAllIdCards(){
-         return studentIdCardRepository.findAll();
+    public StudentIdCard getIdCardsByStudentId(Long studentId){
+        Student student = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("Student not found"));
+        StudentIdCard idCard = studentIdCardRepository.findByStudentId(student.getId()).orElseThrow(()->new RuntimeException("Id card not found for the student"));
+        return idCard;
     }
 
-    public StudentIdCard getIdCardsByStudentId(Long id){
-        Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student not found"));
-        Optional<StudentIdCard> idCard = studentIdCardRepository.findById(student.getId());
-        if(idCard.isPresent()) return idCard.get();
-        else throw new RuntimeException("Id card not found for the student");
+    public void addIdCard(Long studentId,StudentIdCard idCard){
+         Student student = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("Student not found"));
+         idCard.setStudent(student);
+         studentIdCardRepository.save(idCard);
+    }
+
+    public void updateIdCard(Long studentId,Long id,StudentIdCard idCard){
+        Student student = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("Student not found"));
+        StudentIdCard studentIdCard = studentIdCardRepository.findByStudentId(student.getId()).orElseThrow(()->new RuntimeException("Id card not found for the student"));
+        if(idCard.getCardNumber() != null) studentIdCard.setCardNumber(idCard.getCardNumber());
+        studentIdCardRepository.save(studentIdCard);
     }
 }
