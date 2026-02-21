@@ -3,7 +3,6 @@ package org.example.springsecurity.Model;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 
 @Entity
 public class StudentIdCard {
@@ -68,7 +67,6 @@ public class StudentIdCard {
     public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
-
 
 
 }
