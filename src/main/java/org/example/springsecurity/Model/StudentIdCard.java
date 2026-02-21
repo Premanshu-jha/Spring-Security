@@ -1,5 +1,6 @@
 package org.example.springsecurity.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
@@ -23,7 +24,9 @@ public class StudentIdCard {
     )
     private OffsetDateTime createdAt;
 
-    @OneToOne
+    @OneToOne(
+      fetch = FetchType.LAZY
+    )
     @JoinColumn(
        name = "student_id",
        referencedColumnName = "id",
@@ -31,6 +34,7 @@ public class StudentIdCard {
        nullable = false,
        unique = true
     )
+    @JsonIgnore
     private Student student;
 
     public StudentIdCard() {
