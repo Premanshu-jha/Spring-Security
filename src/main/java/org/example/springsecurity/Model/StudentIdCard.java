@@ -69,9 +69,6 @@ public class StudentIdCard {
         return createdAt;
     }
 
-    public void setCreatedAt(OffsetDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
 
 }
