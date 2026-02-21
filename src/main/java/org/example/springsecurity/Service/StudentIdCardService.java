@@ -5,7 +5,9 @@ import org.example.springsecurity.Model.StudentIdCard;
 import org.example.springsecurity.Model.StudentIdCardRepository;
 import org.example.springsecurity.Model.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudentIdCardService {
     @Autowired
     StudentIdCardRepository studentIdCardRepository;
