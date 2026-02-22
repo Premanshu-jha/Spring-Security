@@ -1,5 +1,6 @@
 package org.example.springsecurity.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -27,6 +28,9 @@ public class Student {
             columnDefinition = "TEXT"
     )
     private String email;
+    @OneToOne(mappedBy = "student",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private StudentIdCard studentIdCard;
 
     public Student() {
     }
@@ -76,6 +80,14 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public StudentIdCard getStudentIdCard() {
+        return studentIdCard;
+    }
+
+    public void setStudentIdCard(StudentIdCard studentIdCard) {
+        this.studentIdCard = studentIdCard;
     }
 
     @Override
