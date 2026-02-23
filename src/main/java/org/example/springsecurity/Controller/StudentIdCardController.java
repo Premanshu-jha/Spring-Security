@@ -6,24 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/{studentId}/student-id-card")
 public class StudentIdCardController {
 
     @Autowired
     StudentIdCardService studentIdCardService;
 
-    @GetMapping
+    @GetMapping("/student/{studentId}/student-id-card")
     public StudentIdCard getStudentIdCard(@PathVariable Long studentId){
          return studentIdCardService.getStudentIdCard(studentId);
     }
 
-    @PostMapping
+    @PostMapping("/student/{studentId}/student-id-card")
     public void addStudentIdCard(@PathVariable Long studentId,@RequestBody StudentIdCard idCard){
         studentIdCardService.addIdCard(studentId,idCard);
     }
 
-    @PatchMapping("/{id}")
-    public void patchStudentIdCard(@PathVariable Long studentId,@PathVariable Long id,@RequestBody StudentIdCard idCard){
-        studentIdCardService.updateIdCard(studentId,id,idCard);
+    @PatchMapping("/student-id-card/{id}")
+    public void patchStudentIdCard(@PathVariable Long id,@RequestBody StudentIdCard idCard){
+        studentIdCardService.updateIdCard(id,idCard);
     }
 }
