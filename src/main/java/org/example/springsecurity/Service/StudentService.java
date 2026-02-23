@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class StudentService {
     @Autowired
-    StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     public List<Student> getAllStudents(Integer pageNumbr,Integer pageSize){
         Pageable pageReq = PageRequest.of(pageNumbr,pageSize);

@@ -3,6 +3,8 @@ package org.example.springsecurity.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.OffsetDateTime;
+
 @Entity
 public class Book {
     @Id
@@ -10,6 +12,8 @@ public class Book {
     private Long id;
 
     private String bookName;
+
+    private OffsetDateTime createdAt;
 
     @ManyToOne(
             fetch = FetchType.LAZY
@@ -20,6 +24,11 @@ public class Book {
     )
     @JsonIgnore
     private Student student;
+
+    @PrePersist
+    public void prePersist(){
+        createdAt = OffsetDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -43,5 +52,9 @@ public class Book {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
     }
 }

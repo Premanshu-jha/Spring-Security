@@ -3,6 +3,7 @@ package org.example.springsecurity.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class Student {
@@ -28,9 +29,14 @@ public class Student {
             columnDefinition = "TEXT"
     )
     private String email;
+
     @OneToOne(mappedBy = "student",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     @JsonIgnore
     private StudentIdCard studentIdCard;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Book> books;
 
     public Student() {
     }
