@@ -17,7 +17,7 @@ public class BookController {
       return bookService.getAllBooks(studentId);
     }
 
-    @PostMapping("/student/{studentId}/books")
+    @PostMapping("/student/{studentId}/book")
     public void addBook(@PathVariable Long studentId, @RequestBody Book book){
         bookService.addBook(studentId,book);
     }
