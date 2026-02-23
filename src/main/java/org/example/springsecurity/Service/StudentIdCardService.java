@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentIdCardService extends Common{
     @Autowired
-    StudentIdCardRepository studentIdCardRepository;
+    private StudentIdCardRepository studentIdCardRepository;
 
     public StudentIdCard getStudentIdCardById(Long id){
        return studentIdCardRepository.findById(id).orElseThrow(()->new RuntimeException("Id card not found for the student"));
