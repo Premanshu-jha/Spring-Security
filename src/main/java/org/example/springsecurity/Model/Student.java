@@ -38,6 +38,20 @@ public class Student {
     @JsonIgnore
     private List<Book> books;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+          name = "course_enrollment",
+          joinColumns = @JoinColumn(
+                  name = "student_id",
+                  foreignKey = @ForeignKey(name = "enrollment_student_id_fk")
+          ),
+          inverseJoinColumns = @JoinColumn(
+                  name = "course_id",
+                  foreignKey = @ForeignKey(name = "enrollment_course_id_fk")
+          )
+    )
+    private List<Course> courses;
+
     public Student() {
     }
 
