@@ -38,6 +38,8 @@ public class Student {
     @JsonIgnore
     private List<Book> books;
 
+
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
           name = "course_enrollment",
@@ -50,7 +52,9 @@ public class Student {
                   foreignKey = @ForeignKey(name = "enrollment_course_id_fk")
           )
     )
+    @JsonIgnore
     private List<Course> courses;
+
 
     public Student() {
     }
@@ -120,5 +124,13 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, age, email);
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }
