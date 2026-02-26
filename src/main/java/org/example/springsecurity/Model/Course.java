@@ -25,6 +25,7 @@ public class Course {
     )
     private String department;
 
+
     @ManyToMany(
             mappedBy = "courses",
             fetch = FetchType.LAZY
@@ -65,5 +66,13 @@ public class Course {
 
     public OffsetDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }
