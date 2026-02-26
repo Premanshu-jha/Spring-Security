@@ -18,7 +18,7 @@ public class CourseService extends Common{
     StudentRepository studentRepository;
 
     public List<Course> getCourses(Long studentId){
-        return courseRepository.findAllByStudentId(studentId);
+        return courseRepository.findAllByStudents_Id(studentId);
     }
     @Transactional
     public void addCourse(Long studentId,Course courseReq){
