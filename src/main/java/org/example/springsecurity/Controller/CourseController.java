@@ -12,14 +12,14 @@ public class CourseController {
     @Autowired
     CourseService courseService;
 
-    @GetMapping("/student/{studentId}/courses")
-    public List<Course> getCourses(@PathVariable Long studentId){
-        return courseService.getCourses(studentId);
+    @GetMapping("/courses")
+    public List<Course> getCourses(){
+        return courseService.getCourses();
     }
 
-    @PostMapping("/student/{studentId}/course")
-    public void postCourse(@PathVariable Long studentId, @RequestBody Course course){
-        courseService.addCourse(studentId,course);
+    @PostMapping("/course")
+    public void postCourse(@RequestBody Course course){
+        courseService.addCourse(course);
     }
 
     @PatchMapping("/course/{id}")

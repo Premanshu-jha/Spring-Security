@@ -1,9 +1,10 @@
 package org.example.springsecurity.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
@@ -30,13 +31,14 @@ public class Course {
             mappedBy = "courses",
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
     private List<Student> students;
 
-    private OffsetDateTime createdAt;
+    private ZonedDateTime createdAt;
 
     @PrePersist
     public void prePersist(){
-        createdAt = OffsetDateTime.now();
+        createdAt = ZonedDateTime.now();
     }
 
 
@@ -64,7 +66,7 @@ public class Course {
         this.department = department;
     }
 
-    public OffsetDateTime getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
