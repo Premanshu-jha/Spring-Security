@@ -19,12 +19,12 @@ public class CourseEnrollmentController {
     }
 
     @PostMapping
-    public void addEnrollment(@RequestParam Long studentId,@RequestParam Long courseId,@RequestBody CourseEnrollment courseEnrollment){
-        courseEnrollmentService.createCourseEnrollment(studentId,courseId,courseEnrollment);
+    public void addEnrollment(@RequestParam Long studentId,@RequestParam Long courseId){
+        courseEnrollmentService.addCourseEnrollment(studentId,courseId);
     }
 
     @DeleteMapping
-    public void unEnrollment(@RequestParam Long studentId,@RequestParam Long courseId,@RequestBody CourseEnrollment courseEnrollment){
-        courseEnrollmentService.unEnrollCourse(studentId,courseId,courseEnrollment);
+    public void unEnrollment(@RequestParam Long studentId,@RequestParam Long courseId){
+        courseEnrollmentService.unEnrollCourse(studentId,courseId);
     }
 }
