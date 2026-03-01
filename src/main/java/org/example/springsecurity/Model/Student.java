@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(
             nullable = false,
@@ -40,20 +40,9 @@ public class Student {
 
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-          name = "course_enrollment",
-          joinColumns = @JoinColumn(
-                  name = "student_id",
-                  foreignKey = @ForeignKey(name = "enrollment_student_id_fk")
-          ),
-          inverseJoinColumns = @JoinColumn(
-                  name = "course_id",
-                  foreignKey = @ForeignKey(name = "enrollment_course_id_fk")
-          )
-    )
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Course> courses;
+    private List<CourseEnrollment> courseEnrollments;
 
 
     public Student() {
@@ -126,11 +115,4 @@ public class Student {
         return Objects.hash(id, firstName, lastName, age, email);
     }
 
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
 }

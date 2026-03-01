@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(
@@ -27,12 +27,9 @@ public class Course {
     private String department;
 
 
-    @ManyToMany(
-            mappedBy = "courses",
-            fetch = FetchType.LAZY
-    )
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Student> students;
+    private List<CourseEnrollment> courseEnrollments;
 
     private ZonedDateTime createdAt;
 
@@ -70,11 +67,6 @@ public class Course {
         return createdAt;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+
 }

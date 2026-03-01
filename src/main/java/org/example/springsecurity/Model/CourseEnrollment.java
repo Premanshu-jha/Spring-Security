@@ -1,5 +1,6 @@
 package org.example.springsecurity.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
@@ -10,21 +11,23 @@ public class CourseEnrollment {
     @EmbeddedId
     private CourseEnrollmentId courseEnrollmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "student_id",
             foreignKey = @ForeignKey(name = "enrollment_student_id_fk")
     )
     @MapsId("studentId")
+    @JsonIgnore
     private Student student;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "course_id",
             foreignKey = @ForeignKey(name = "enrollment_course_id_fk")
     )
     @MapsId("courseId")
+    @JsonIgnore
     private Course course;
 
     private ZonedDateTime createdAt;

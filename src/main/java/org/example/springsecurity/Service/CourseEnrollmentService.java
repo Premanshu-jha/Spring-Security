@@ -1,5 +1,6 @@
 package org.example.springsecurity.Service;
 
+import jakarta.transaction.Transactional;
 import org.example.springsecurity.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,20 +17,25 @@ public class CourseEnrollmentService extends Common{
          return courseEnrollmentRepository.findAll();
     }
 
-    public CourseEnrollment createCourseEnrollment(Long studentId,Long courseId,CourseEnrollment courseEnrollment){
+
+    @Transactional
+    public void addCourseEnrollment(Long studentId,Long courseId){
         Student student = getStudent(studentId);
         Course course = getCourse(courseId);
-        CourseEnrollmentId courseEnrollmentId = new CourseEnrollmentId(student.getId(),course.getId());
-        courseEnrollment.setCourseEnrollmentId(courseEnrollmentId);
-        return courseEnrollment;
+
+        CourseEnrollment ce = new CourseEnrollment();
+        ce.setCourseEnrollmentId(new CourseEnrollmentId(student.getId(), course.getId()));
+        ce.setStudent(student);
+        ce.setCourse(course);
+
+        courseEnrollmentRepository.save(ce);
     }
 
-    public void addCourseEnrollment(Long studentId,Long courseId,CourseEnrollment courseEnrollment){
-        courseEnrollmentRepository.save(createCourseEnrollment(studentId,courseId,courseEnrollment));
-    }
+    public void unEnrollCourse(Long studentId,Long courseId){
+        CourseEnrollmentId courseEnrollmentId = new CourseEnrollmentId(studentId,courseId);
+        CourseEnrollment courseEnrollment = courseEnrollmentRepository.findByCourseEnrollmentId(courseEnrollmentId).orElseThrow(()->new RuntimeException("Enrollment not found for given course and student id"));
+        courseEnrollmentRepository.delete(courseEnrollment);
 
-    public void unEnrollCourse(Long studentId,Long courseId,CourseEnrollment courseEnrollment){
-        courseEnrollmentRepository.delete(createCourseEnrollment(studentId,courseId,courseEnrollment));
     }
 
 

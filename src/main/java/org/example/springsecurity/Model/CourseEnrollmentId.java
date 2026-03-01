@@ -1,13 +1,20 @@
 package org.example.springsecurity.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import java.io.Serializable;
 import java.util.Objects;
 @Embeddable
-public class CourseEnrollmentId {
+public class CourseEnrollmentId implements Serializable {
 
+    @Column(name = "student_id")
     private Long studentId;
+    @Column(name = "course_id")
     private Long courseId;
+
+    public CourseEnrollmentId() {
+    }
 
     public CourseEnrollmentId(Long studentId, Long courseId) {
         this.studentId = studentId;
